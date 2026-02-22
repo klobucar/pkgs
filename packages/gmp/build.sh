@@ -20,8 +20,11 @@ case $(uname -m) in
   aarch64) MARCH="-march=armv8-a" ;;
   *)       MARCH="" ;;
 esac
-export CFLAGS="$MARCH -O2 -pipe"
-export CXXFLAGS="${CFLAGS}"
+# GCC 15+ defaults to -std=gnu23 (C23). GMP 6.3.0's configure tests
+# use patterns invalid in C23 (implicit declarations, K&R functions).
+# Force C17 mode so configure's compiler checks pass.
+export CFLAGS="$MARCH -O2 -pipe -std=gnu17"
+export CXXFLAGS="$MARCH -O2 -pipe -std=gnu++17"
 
 ./configure  --prefix=/usr     \
             --enable-cxx     \

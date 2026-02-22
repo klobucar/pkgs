@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ex
 
-tar -xzf ssl-certs-complete.tar.gz
+tar --no-same-owner -xzf ssl-certs-complete.tar.gz
 
 mkdir -p "$OUTPUT_DIR/etc/ssl"
 cp -r certs "$OUTPUT_DIR/etc/ssl/"
