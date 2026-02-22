@@ -20,3 +20,10 @@ export CXXFLAGS="${CFLAGS}"
 make -j$(nproc)
 make check
 make DESTDIR=$OUTPUT_DIR install
+
+# On aarch64, libtool may install to lib64 despite --libdir=/usr/lib.
+# Merge lib64 into lib so output globs find the files.
+if [ -d "$OUTPUT_DIR/usr/lib64" ]; then
+    cp -a "$OUTPUT_DIR/usr/lib64/"* "$OUTPUT_DIR/usr/lib/" 2>/dev/null || true
+    rm -rf "$OUTPUT_DIR/usr/lib64"
+fi
