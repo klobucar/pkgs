@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-tar xf "glibc-${MINIMAL_ARG_VERSION}.tar.xz"
+tar -xfo "glibc-${MINIMAL_ARG_VERSION}.tar.xz"
 cd "glibc-${MINIMAL_ARG_VERSION}"
 
 mkdir -v build

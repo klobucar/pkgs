@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-tar xf ncurses-6.5-20250830.tgz
+tar -xfo ncurses-6.5-20250830.tgz
 cd ncurses-6.5-20250830
 
 case $(uname -m) in

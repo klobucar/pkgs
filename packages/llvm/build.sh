@@ -1,20 +1,20 @@
 #!/bin/sh
 set -ex
 
-tar xf llvm-20.1.8.src.tar.xz
+tar -xfo llvm-20.1.8.src.tar.xz
 cd llvm-20.1.8.src
 
-tar -xf ../cmake-20.1.8.src.tar.xz
-tar -xf ../third-party-20.1.8.src.tar.xz
+tar -xfo ../cmake-20.1.8.src.tar.xz
+tar -xfo ../third-party-20.1.8.src.tar.xz
 sed '/LLVM_COMMON_CMAKE_UTILS/s@../cmake@cmake-20.1.8.src@' \
 	-i CMakeLists.txt
 sed '/LLVM_THIRD_PARTY_DIR/s@../third-party@third-party-20.1.8.src@' \
 	-i cmake/modules/HandleLLVMOptions.cmake
 
-tar -xf ../clang-20.1.8.src.tar.xz -C tools
+tar -xfo ../clang-20.1.8.src.tar.xz -C tools
 mv tools/clang-20.1.8.src tools/clang
 
-tar -xf ../compiler-rt-20.1.8.src.tar.xz -C projects
+tar -xfo ../compiler-rt-20.1.8.src.tar.xz -C projects
 mv projects/compiler-rt-20.1.8.src projects/compiler-rt
 
 sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt

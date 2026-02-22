@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-tar xfo pciutils-3.14.0.tar.gz
+tar -xfo pciutils-3.14.0.tar.gz
 cd pciutils-3.14.0
 
 # Avoid conflict with hwdata package

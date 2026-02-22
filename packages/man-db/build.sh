@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ex
 
-tar xf man-db-2.13.1.tar.xz
+tar -xfo man-db-2.13.1.tar.xz
 cd man-db-2.13.1
 
 case $(uname -m) in

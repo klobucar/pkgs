@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-tar xfo "icu4c-${MINIMAL_ARG_VERSION}-sources.tgz"
+tar -xfo "icu4c-${MINIMAL_ARG_VERSION}-sources.tgz"
 cd icu/source
 
 case $(uname -m) in
