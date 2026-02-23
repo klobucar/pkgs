@@ -34,5 +34,12 @@ cxx = "clang++"
 linker = "clang"
 llvm-config = "/usr/bin/llvm-config"
 
+[target.aarch64-unknown-linux-gnu]
+cc = "clang"
+cxx = "clang++"
+linker = "clang"
+llvm-config = "/usr/bin/llvm-config"
+
+
 [install]
 prefix = "/usr"
