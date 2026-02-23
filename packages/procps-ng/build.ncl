@@ -24,9 +24,11 @@ let ncurses = import "../ncurses/build.ncl" in
   outputs = {
     bins = { glob = "usr/bin/*" } | OutputBin,
     sbins = { glob = "usr/sbin/*" } | OutputBin,
-    libs = { glob = "usr/lib/*" } | OutputLib,
+
+    libs = { glob = "usr/lib/*.so*" } | OutputLib,
+    ltconfigs = { glob = "usr/lib/libproc2.la" } | OutputData,
+    pkgconfigs = { glob = "usr/lib/pkgconfig/*" } | OutputData,
 
     includes = { glob = "usr/include/libproc2/*" } | OutputData,
-    pkgconfig = { glob = "usr/lib/pkgconfig/*" } | OutputData,
   },
 } | BuildSpec
