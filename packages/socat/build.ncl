@@ -4,6 +4,7 @@ let base = import "../base/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 let make = import "../make/build.ncl" in
 let openssl = import "../openssl/build.ncl" in
+let ncurses = import "../ncurses/build.ncl" in
 let readline = import "../readline/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 
@@ -44,10 +45,11 @@ let version = "1.8.1.1" in
     } | Attrs,
 
   tests = {
-    version_check = {
-      class = 'Standalone,
-      test_deps = [],
-      cmds = [["socat", "-V"]],
-    } | Test,
+    smoketest =
+      {
+        class = 'Standalone,
+        test_deps = [],
+        cmds = [["/usr/bin/socat", "-V"]],
+      } | Test,
   },
 } | BuildSpec
