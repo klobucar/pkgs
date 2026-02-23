@@ -1,7 +1,8 @@
-let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, Source, Test, .. } = import "minimal.ncl" in
+let { standaloneTest, subsetOf, Attrs, BuildSpec, Local, OutputBin, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 let base = import "../base/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
+let gcc = import "../gcc/build.ncl" in
 let python = import "../python/build.ncl" in
 
 let version = "2.6.9" in
@@ -26,6 +27,7 @@ let version = "2.6.9" in
   ],
   runtime_deps = [
     glibc,
+    subsetOf gcc ["libgcc"],
   ],
 
   cmd = "./build.sh",
@@ -49,7 +51,7 @@ let version = "2.6.9" in
     } | Attrs,
 
   tests = {
-    smoketest = standaloneTest "/bin/deno --version",
+    smoketest = standaloneTest "/usr/bin/deno --version",
 
     eval =
       {
