@@ -1,7 +1,7 @@
 let { Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, Test, .. } = import "minimal.ncl" in
 let base = import "../base/build.ncl" in
+let alsa-lib = import "../alsa-lib/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
-let gcc = import "../gcc/build.ncl" in
 let zlib = import "../zlib/build.ncl" in
 
 let version = "21.0.10" in
@@ -17,8 +17,8 @@ let build_num = "7" in
     base,
   ],
   runtime_deps = [
+    alsa-lib,
     glibc,
-    gcc,
     zlib,
   ],
 
@@ -30,8 +30,13 @@ let build_num = "7" in
 
   outputs = {
     bins = { glob = "usr/bin/*" } | OutputBin,
+
+    jvm_bins = { glob = "usr/lib/jvm/bin/*" } | OutputBin,
     jvm_libs = { glob = "usr/lib/jvm/lib/**/*.so*" } | OutputLib,
-    jvm_data = { glob = "usr/lib/jvm/**" } | OutputData,
+    jvm_libdata = { glob = "usr/lib/jvm/lib/**", allow_executable = true } | OutputData,
+
+    jvm_data = { glob = "usr/lib/jvm/{jmod,conf,legal}/**" } | OutputData,
+    jvm_includes = { glob = "usr/lib/jvm/include/**" } | OutputData,
   },
 
   attrs =
