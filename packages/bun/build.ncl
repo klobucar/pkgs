@@ -48,7 +48,7 @@ let version = "1.3.9" in
         class = 'Standalone,
         test_deps = [base],
         cmds = [
-          ["/bin/bash", "-c", "bun eval 'console.log(1+1)' | grep -q '^2$'"],
+          ["/bin/bash", "-c", "bun --eval 'console.log(1+1)' | grep -q '^2$'"],
         ],
       } | Test,
   },
