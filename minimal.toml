@@ -1,2 +1,6 @@
 [stdlib]
 minimum_version = "0.0.5"
+
+[tasks.shell]
+packages = ["base", "bash", "claude-code"]
+exec = "bash -l"
