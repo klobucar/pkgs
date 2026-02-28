@@ -26,9 +26,6 @@ let version = "2.54.2" in
     ninja,
     pkgconf,
     toolchain,
-    glib,
-    dbus,
-    libxml2,
   ],
   runtime_deps = [
     glib,
@@ -41,8 +38,8 @@ let version = "2.54.2" in
 
   outputs = {
     libs = { glob = "usr/lib/libatspi.so*" } | OutputLib,
-    includes = { glob = "usr/include/**" } | OutputData,
-    pkgconfigs = { glob = "usr/lib/pkgconfig/*.pc" } | OutputData,
+    includes = { glob = "usr/include/at-spi*/**" } | OutputData,
+    pkgconfigs = { glob = "usr/lib/pkgconfig/{atk-bridge*,atspi*}.pc" } | OutputData,
   },
   attrs =
     {
