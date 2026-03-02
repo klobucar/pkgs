@@ -33,6 +33,9 @@ harness {
         },
         {
           file_predicates."Cargo.toml" = ".workspace.dependencies.\"openssl-sys\"",
+        },
+        {
+          file_predicates."Cargo.toml" = ".workspace.dependencies.rustls and (.workspace.dependencies.rustls.features | contains(\"ring\") | not)",
         }
       ],
       runtime_package_if_any."bzip2" = [
