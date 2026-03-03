@@ -23,4 +23,5 @@ harness {
       },
     }
   ],
+  matches_project_priority = 10, # Higher than npm
 }
