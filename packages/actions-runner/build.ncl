@@ -57,6 +57,10 @@ in
   attrs =
     {
       upstream_version = version,
+      env_state_wiring = {
+        env_var = "RUNNER_HOME",
+        prefix = "actions-runner",
+      },
       source_provenance = {
         category = 'GithubRepo,
         owner = "actions",
