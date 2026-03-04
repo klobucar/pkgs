@@ -5,7 +5,7 @@ let glibc = import "../glibc/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
 let python = import "../python/build.ncl" in
 
-let version = "2.6.9" in
+let version = "2.7.2" in
 {
   name = "deno",
   build_deps = [
@@ -14,12 +14,12 @@ let version = "2.6.9" in
       { arch = 'Amd64, .. } =>
         {
           url = "https://github.com/denoland/deno/releases/download/v%{version}/deno-x86_64-unknown-linux-gnu.zip",
-          sha256 = "8a677a4b0cea1a25aaecfc70d6c6a288f9ad69af0a92e9e9d513cabaaf3c688f",
+          sha256 = "bc3af4d1bedd7893664b925c0f39fb08f7b12242e57ed4acdc0cf64540b4449c",
         } | Source,
       { arch = 'Arm64, .. } =>
         {
           url = "https://github.com/denoland/deno/releases/download/v%{version}/deno-aarch64-unknown-linux-gnu.zip",
-          sha256 = "d1cd2f5f08abdc22156b67fc1cd9e8dcd2e8e3ab5caffe1da603992c8b1b5d67",
+          sha256 = "c36c0b284d084dfe7045a106e60bd98d919183fd69d7902a42f3c7a244bf4386",
         } | Source,
     } target,
     base,

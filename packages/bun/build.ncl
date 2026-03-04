@@ -3,14 +3,14 @@ let base = import "../base/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 let python = import "../python/build.ncl" in
 
-let version = "1.3.9" in
+let version = "1.3.10" in
 {
   name = "bun",
   build_deps = [
     { file = "build.sh" } | Local,
     {
       url = "https://github.com/oven-sh/bun/releases/download/bun-v%{version}/bun-linux-x64.zip",
-      sha256 = "4680e80e44e32aa718560ceae85d22ecfbf2efb8f3641782e35e4b7efd65a1aa",
+      sha256 = "f57bc0187e39623de716ba3a389fda5486b2d7be7131a980ba54dc7b733d2e08",
     } | Source,
     base,
     python,
