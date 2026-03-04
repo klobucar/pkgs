@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+case $(uname -m) in
+  x86_64)  MARCH="-march=x86-64-v3" ;;
+  aarch64) MARCH="-march=armv8-a" ;;
+  *)       MARCH="" ;;
+esac
+export CFLAGS="$MARCH -O3 -pipe"
+export CXXFLAGS="${CFLAGS}"
+
+./configure --prefix=/usr          \
+            --sysconfdir=/etc/zsh  \
+            --enable-etcdir=/etc/zsh \
+            --enable-cap           \
+            --enable-gdbm          \
+            --with-tcsetpgrp
+
+# Disable termcap module: conflicts with newer ncurses headers
+# (static vs extern declaration mismatch). terminfo module covers
+# the same functionality.
+sed -i '/name=zsh\/termcap/s/link=[a-z]*/link=no/' config.modules
+
+make -j$(nproc)
+make DESTDIR=$OUTPUT_DIR install
