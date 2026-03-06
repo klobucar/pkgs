@@ -4,12 +4,20 @@ description: Install Minimal, configure caches, and prepare the environment
 runs:
   using: composite
   steps:
+    - name: Free Disk Space
+      uses: endersonmenezes/free-disk-space@v3 # Use @main for latest, @v3 for stable
+      with:
+        remove_android: true
+        remove_dotnet: true
+        remove_haskell: true
+        remove_packages: "azure-cli google-cloud-cli microsoft-edge-stable google-chrome-stable firefox postgresql* mysql* dotnet-sdk-*"
+        remove_packages_one_command: true
     - name: Cache Minimal binary
       id: cache-minimal
       uses: actions/cache@v5
       with:
         path: ~/.minimal
-        key: minimal-bin-${{ runner.os }}
+        key: minimal-bin-v2-${{ runner.os }}
     - name: Install Minimal
       if: steps.cache-minimal.outputs.cache-hit != 'true'
       shell: bash
@@ -17,7 +25,10 @@ runs:
         curl --proto '=https' --tlsv1.2 -sSf https://storage.googleapis.com/minimal-shim/install.sh | sh -s -- -y
     - name: Add Minimal to PATH
       shell: bash
-      run: echo "$HOME/.minimal/bin" >> $GITHUB_PATH
+      run: |
+        # Support both old and new shim layout
+        echo "$HOME/.minimal/shim/bin" >> $GITHUB_PATH
+        echo "$HOME/.minimal/bin" >> $GITHUB_PATH
     - name: Cache Cargo state
       uses: actions/cache@v5
       with:
