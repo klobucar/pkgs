@@ -7,7 +7,7 @@ case $(uname -m) in
   *)       echo "unsupported architecture: $(uname -m)" >&2; exit 1 ;;
 esac
 
-tar -xf "google-cloud-cli-${MINIMAL_ARG_VERSION}-linux-${PLATFORM}.tar.gz"
+tar -xof "google-cloud-cli-${MINIMAL_ARG_VERSION}-linux-${PLATFORM}.tar.gz"
 
 mkdir -p $OUTPUT_DIR/usr/{bin,lib}
 mv google-cloud-sdk $OUTPUT_DIR/usr/lib/google-cloud-sdk
