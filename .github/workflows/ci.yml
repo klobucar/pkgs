@@ -20,4 +20,4 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-minimal
       - name: Check Harnesses
-        run: minimal check -p ''
+        run: minimal check --harnesses
