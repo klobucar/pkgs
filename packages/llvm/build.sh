@@ -1,26 +1,24 @@
 #!/bin/sh
 set -ex
 
-tar -xof llvm-20.1.8.src.tar.xz
-cd llvm-20.1.8.src
+tar -xof llvm-21.1.8.src.tar.xz
+tar -xof cmake-21.1.8.src.tar.xz
+mv cmake-21.1.8.src cmake
+tar -xof third-party-21.1.8.src.tar.xz
+mv third-party-21.1.8.src third-party
+tar -xof clang-21.1.8.src.tar.xz
+mv clang-21.1.8.src clang
+tar -xof lld-21.1.8.src.tar.xz
+mv lld-21.1.8.src lld
+tar -xof libunwind-21.1.8.src.tar.xz
+mv libunwind-21.1.8.src libunwind
+tar -xof compiler-rt-21.1.8.src.tar.xz
+mv compiler-rt-21.1.8.src compiler-rt
 
-tar -xof ../cmake-20.1.8.src.tar.xz
-tar -xof ../third-party-20.1.8.src.tar.xz
-sed '/LLVM_COMMON_CMAKE_UTILS/s@../cmake@cmake-20.1.8.src@' \
-	-i CMakeLists.txt
-sed '/LLVM_THIRD_PARTY_DIR/s@../third-party@third-party-20.1.8.src@' \
-	-i cmake/modules/HandleLLVMOptions.cmake
+sed 's/utility/tool/' -i llvm-21.1.8.src/utils/FileCheck/CMakeLists.txt
 
-tar -xof ../clang-20.1.8.src.tar.xz -C tools
-mv tools/clang-20.1.8.src tools/clang
-
-tar -xof ../compiler-rt-20.1.8.src.tar.xz -C projects
-mv projects/compiler-rt-20.1.8.src projects/compiler-rt
-
-sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
-
-mkdir -v build
-cd build
+mkdir llvm-21.1.8.src/build
+cd llvm-21.1.8.src/build
 
 export CC=clang
 export CXX=clang++
@@ -45,6 +43,8 @@ cmake \
 	-D LLVM_ENABLE_RTTI=ON \
 	-D LLVM_INCLUDE_BENCHMARKS=OFF \
 	-D LLVM_LINK_LLVM_DYLIB=ON \
+	-D LLVM_USE_LINKER=lld \
+	-D LLVM_ENABLE_PROJECTS="clang;compiler-rt;lld" \
 	-D LLVM_TARGETS_TO_BUILD="all" \
 	-W no-dev -G Ninja ..
 

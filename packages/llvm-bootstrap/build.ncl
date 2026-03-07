@@ -1,8 +1,6 @@
-let { subsetOf, Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
+let { BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let base = import "../base/build.ncl" in
 let cmake = import "../cmake/build.ncl" in
-let libffi = import "../libffi/build.ncl" in
-let llvm_bootstrap = import "../llvm-bootstrap/build.ncl" in
 let ninja = import "../ninja/build.ncl" in
 let python = import "../python/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
@@ -11,7 +9,7 @@ let gcc = import "../gcc/build.ncl" in
 let zlib = import "../zlib/build.ncl" in
 
 {
-  name = "llvm",
+  name = "llvm-bootstrap",
   build_deps = [
     { file = "build.sh" } | Local,
     {
@@ -21,10 +19,6 @@ let zlib = import "../zlib/build.ncl" in
     {
       url = "gs://minimal-staging-archives/cmake-21.1.8.src.tar.xz",
       sha256 = "85735f20fd8c81ecb0a09abb0c267018475420e93b65050cc5b7634eab744de9"
-    } | Source,
-    {
-      url = "gs://minimal-staging-archives/compiler-rt-21.1.8.src.tar.xz",
-      sha256 = "dd54ae21aee1780fac59445b51ebff601ad016b31ac3a7de3b21126fd3ccb229"
     } | Source,
     {
       url = "gs://minimal-staging-archives/lld-21.1.8.src.tar.xz",
@@ -44,49 +38,23 @@ let zlib = import "../zlib/build.ncl" in
     } | Source,
     base,
     cmake,
-    llvm_bootstrap,
     ninja,
     python,
     toolchain,
   ],
   runtime_deps = [
     glibc,
-    libffi,
     zlib,
   ],
 
   cmd = "./build.sh",
   outputs = {
     bins = { glob = "usr/bin/*" } | OutputBin,
-
-    libllvm = { glob = "usr/lib/*LLVM*.{so*,a}" } | OutputLib,
-    libear = { glob = "usr/lib/libear/**", allow_data = true } | OutputLib,
-    liblto = { glob = "usr/lib/libLTO.so*" } | OutputLib,
-    libremarks = { glob = "usr/lib/libRemarks.so*" } | OutputLib,
-    libscanbuild = { glob = "usr/lib/libscanbuild/**", allow_data = true } | OutputLib,
-
-    libclang = { glob = "usr/lib/libclang*.{so*,a}" } | OutputLib,
+    libs = { glob = "usr/lib/*.{so*,a}" } | OutputLib,
     libs_clang = { glob = "usr/lib/clang/*/**", allow_data = true } | OutputLib,
-
     libexec = { glob = "usr/libexec/**" } | OutputBin,
-    share_data = { glob = "usr/share/**" } | OutputData,
-
     cmake_data_llvm = { glob = "usr/lib/cmake/llvm/*.cmake" } | OutputData,
     cmake_data_clang = { glob = "usr/lib/cmake/clang/*.cmake" } | OutputData,
-    cmake_data_lld = { glob = "usr/lib/cmake/lld/*.cmake" } | OutputData,
-    include_lld = { glob = "usr/include/lld*/**" } | OutputData,
-
-    mans = { glob = "usr/share/man/**" } | OutputData,
     includes = { glob = "usr/include/**" } | OutputData,
-    include_clang = { glob = "usr/include/clang*/**" } | OutputData,
-    include_llvm = { glob = "usr/include/llvm*/**" } | OutputData,
   },
-  attrs =
-    {
-      source_provenance = {
-        category = 'GithubRepo,
-        owner = "llvm",
-        repo = "llvm-project",
-      },
-    } | Attrs,
 } | BuildSpec
