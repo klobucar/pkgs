@@ -17,12 +17,16 @@ runs:
       uses: actions/cache@v5
       with:
         path: ~/.minimal
-        key: minimal-bin-v3-${{ runner.os }}
+        key: minimal-bin-v2-${{ runner.os }}
     - name: Install Minimal
-      if: steps.cache-minimal.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://storage.googleapis.com/minimal-shim/install.sh | sh -s -- -y
+        if [ -x "$HOME/.minimal/shim/bin/minimal" ] || [ -x "$HOME/.minimal/bin/minimal" ]; then
+          echo "minimal already installed"
+        else
+          echo "installing minimal (cache miss or restore failed)"
+          curl --proto '=https' --tlsv1.2 -sSf https://storage.googleapis.com/minimal-shim/install.sh | sh -s -- -y
+        fi
     - name: Add Minimal to PATH
       shell: bash
       run: |
