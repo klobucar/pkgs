@@ -2,7 +2,7 @@ let { harness, .. } = import "minimal.ncl" in
 harness {
   name = "rust",
 
-  build_packages = ["gcc", "rust", "binutils", "pkgconf"],
+  build_packages = ["gcc", "rust", "binutils", "pkgconf", "linux_headers"],
   build_env_vars = {
     # The 'env_state_wiring' attribute on the 'rust' package already wires a
     # state directory `cargo`, set to `$CARGO_HOME`. As such, we set the
