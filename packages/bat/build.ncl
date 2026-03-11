@@ -47,6 +47,6 @@ let version = "0.26.1" in
         owner = "sharkdp",
         repo = "bat",
       },
-      build_cost_multiple = 2,
+      build_cost_multiple = 3,
     } | Attrs,
 } | BuildSpec

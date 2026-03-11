@@ -98,5 +98,6 @@ let version = "1.25.5" in
         owner = "golang",
         repo = "go",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

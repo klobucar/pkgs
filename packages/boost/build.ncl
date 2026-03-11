@@ -54,5 +54,6 @@ let glibc = import "../glibc/build.ncl" in
         owner = "boostorg",
         repo = "boost",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

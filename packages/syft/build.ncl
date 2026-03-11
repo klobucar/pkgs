@@ -48,5 +48,6 @@ let version = "1.42.0" in
         owner = "anchore",
         repo = "syft",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

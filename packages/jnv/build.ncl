@@ -42,5 +42,6 @@ let version = "0.6.1" in
         owner = "ynqa",
         repo = "jnv",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

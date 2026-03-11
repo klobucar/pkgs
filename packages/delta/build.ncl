@@ -49,5 +49,6 @@ let version = "0.18.2" in
         owner = "dandavison",
         repo = "delta",
       },
+      build_cost_multiple = 3,
     } | Attrs,
 } | BuildSpec

@@ -51,7 +51,7 @@ let version = "0.16.0-dev.2682+02142a54d" in
           prefix = "zig-global-cache",
         },
       ],
-      build_cost_multiple = 2,
+      build_cost_multiple = 3,
     } | Attrs,
 
   tests = {

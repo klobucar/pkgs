@@ -42,5 +42,6 @@ let version = "0.67.0" in
         owner = "Wilfred",
         repo = "difftastic",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

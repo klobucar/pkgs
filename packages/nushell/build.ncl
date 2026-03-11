@@ -43,5 +43,6 @@ let version = "0.110.0" in
         owner = "nushell",
         repo = "nushell",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

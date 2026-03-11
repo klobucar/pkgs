@@ -48,5 +48,6 @@ let version = "2.10.2" in
         owner = "caddyserver",
         repo = "caddy",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

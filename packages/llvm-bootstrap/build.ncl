@@ -57,5 +57,5 @@ let zlib = import "../zlib/build.ncl" in
     includes = { glob = "usr/include/**" } | OutputData,
   },
 
-  attrs.build_cost_multiple = 5,
+  attrs.build_cost_multiple = 6,
 } | BuildSpec

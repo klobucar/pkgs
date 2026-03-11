@@ -40,5 +40,6 @@ let version = "0.1.3" in
         owner = "DVDTSB",
         repo = "hexhog",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

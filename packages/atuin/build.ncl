@@ -40,5 +40,6 @@ let version = "18.12.1" in
         owner = "atuinsh",
         repo = "atuin",
       },
+      build_cost_multiple = 3,
     } | Attrs,
 } | BuildSpec

@@ -48,5 +48,6 @@ let version = "3.220.0" in
         owner = "pulumi",
         repo = "pulumi",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

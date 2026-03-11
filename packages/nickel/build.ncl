@@ -40,5 +40,6 @@ let version = "1.16.0" in
       owner = "nickel-lang",
       repo = "nickel",
     },
+    build_cost_multiple = 3,
   },
 } | BuildSpec

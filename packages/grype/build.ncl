@@ -48,5 +48,6 @@ let version = "0.108.0" in
         owner = "anchore",
         repo = "grype",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

@@ -107,6 +107,7 @@ let version = "0.15.1" in
         owner = "vercel-labs",
         repo = "agent-browser",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 
   tests = {

@@ -48,5 +48,6 @@ let version = "2022.3.0" in
         owner = "uxlfoundation",
         repo = "oneTBB",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

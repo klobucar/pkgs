@@ -44,5 +44,6 @@ let version = "1.22.0" in
         owner = "containers",
         repo = "skopeo",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

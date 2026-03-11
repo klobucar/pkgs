@@ -68,6 +68,7 @@ let version = "4.5.0" in
         owner = "fish-shell",
         repo = "fish-shell",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 
   tests = {

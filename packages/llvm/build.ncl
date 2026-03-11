@@ -90,6 +90,6 @@ let zlib = import "../zlib/build.ncl" in
         owner = "llvm",
         repo = "llvm-project",
       },
-      build_cost_multiple = 5,
+      build_cost_multiple = 6,
     } | Attrs,
 } | BuildSpec

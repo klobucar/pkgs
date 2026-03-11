@@ -48,5 +48,6 @@ let version = "1.14.5" in
         owner = "hashicorp",
         repo = "terraform",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

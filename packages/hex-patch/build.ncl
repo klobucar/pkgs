@@ -46,5 +46,6 @@ let version = "1.12.5" in
         owner = "Etto48",
         repo = "HexPatch",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

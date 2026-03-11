@@ -69,5 +69,6 @@ let version = "8.0.1" in
         owner = "FFmpeg",
         repo = "FFmpeg",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec

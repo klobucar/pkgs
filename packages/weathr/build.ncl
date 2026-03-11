@@ -40,5 +40,6 @@ let version = "1.3.0" in
         owner = "Veirt",
         repo = "weathr",
       },
+      build_cost_multiple = 2,
     } | Attrs,
 } | BuildSpec
