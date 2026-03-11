@@ -1,4 +1,5 @@
 let { subsetOf, Attrs, BuildSpec, Local, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
+let { target, .. } = import "config.ncl" in
 let base = import "../base/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
 let python = import "../python/build.ncl" in
@@ -23,7 +24,15 @@ let glibc = import "../glibc/build.ncl" in
     zstd,
   ],
   runtime_deps = [
-    subsetOf gcc ["libgcc", "libstdcpp", "libquadmath"],
+    subsetOf
+      gcc
+      (
+        ["libgcc", "libstdcpp"]
+        @ match {
+          { arch = 'Amd64, .. } => ["libquadmath"],
+          { arch = 'Arm64, .. } => [],
+        } target
+      ),
     subsetOf bzip2 ["libs"],
     subsetOf xz ["liblzma"],
     subsetOf zstd ["libzstd"],

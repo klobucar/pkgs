@@ -72,33 +72,42 @@ let version = "15.2.0" in
   ],
 
   cmd = "./build.sh",
-  outputs = {
-    bins = { glob = "usr/bin/*" } | OutputBin,
+  outputs =
+    {
+      bins = { glob = "usr/bin/*" } | OutputBin,
 
-    libs = { glob = "usr/lib/**/*.{a,o,so*}", allow_data = true } | OutputLib, # allows data as a few .so's are stubs that don't parse in our checker
-    libatomic = { glob = "usr/lib/libatomic.so*" } | OutputLib,
+      libs = { glob = "usr/lib/**/*.{a,o,so*}", allow_data = true } | OutputLib, # allows data as a few .so's are stubs that don't parse in our checker
+      libatomic = { glob = "usr/lib/libatomic.so*" } | OutputLib,
 
-    libgcc = { glob = "usr/lib/libgcc_s.so*", allow_data = true } | OutputLib, # allows data as libgcc_s.so is a stub that does not parse in our checker
-    libgomp = { glob = "usr/lib/libgomp.so*" } | OutputLib,
-    libstdcpp = { glob = "usr/lib/libstdc++*.so*", allow_data = true } | OutputLib, # libstdc++.so.6.0.34-gdb.py...
-    libquadmath = { glob = "usr/lib/libquadmath*.so*" } | OutputLib,
+      libgcc = { glob = "usr/lib/libgcc_s.so*", allow_data = true } | OutputLib, # allows data as libgcc_s.so is a stub that does not parse in our checker
+      libgomp = { glob = "usr/lib/libgomp.so*" } | OutputLib,
+      libstdcpp = { glob = "usr/lib/libstdc++*.so*", allow_data = true } | OutputLib, # libstdc++.so.6.0.34-gdb.py...
 
-    libs_all = { glob = "usr/lib/**", allow_executable = true } | OutputData,
-    share_data = { glob = "usr/share/gcc-*/**" } | OutputData,
-    ltconfigs = { glob = "usr/lib/**/*.la" } | OutputData,
+      libs_all = { glob = "usr/lib/**", allow_executable = true } | OutputData,
+      share_data = { glob = "usr/share/gcc-*/**" } | OutputData,
+      ltconfigs = { glob = "usr/lib/**/*.la" } | OutputData,
 
-    # Wildcards are target/version
-    libexec_bins = { glob = "usr/libexec/gcc/*/*/{cc1,cc1plus,f951,collect2,lto1,lto-wrapper}" } | OutputBin,
-    libexec_libs = { glob = "usr/libexec/gcc/*/*/g++-mapper-server" } | OutputLib,
-    plugins = { glob = "usr/libexec/gcc/*/*/plugin/*" } | OutputBin,
-    install_tools = { glob = "usr/libexec/gcc/*/*/install-tools/*" } | OutputBin,
+      # Wildcards are target/version
+      libexec_bins = { glob = "usr/libexec/gcc/*/*/{cc1,cc1plus,f951,collect2,lto1,lto-wrapper}" } | OutputBin,
+      libexec_libs = { glob = "usr/libexec/gcc/*/*/g++-mapper-server" } | OutputLib,
+      plugins = { glob = "usr/libexec/gcc/*/*/plugin/*" } | OutputBin,
+      install_tools = { glob = "usr/libexec/gcc/*/*/install-tools/*" } | OutputBin,
 
-    liblto_plugin = { glob = "usr/libexec/gcc/*/*/liblto_plugin.so" } | OutputLib,
-    lto_plugin_ltconfig = { glob = "usr/libexec/gcc/*/*/liblto_plugin.la" } | OutputData,
+      liblto_plugin = { glob = "usr/libexec/gcc/*/*/liblto_plugin.so" } | OutputLib,
+      lto_plugin_ltconfig = { glob = "usr/libexec/gcc/*/*/liblto_plugin.la" } | OutputData,
 
-    mans = { glob = "usr/share/man/**" } | OutputData,
-    includes = { glob = "usr/include/**" } | OutputData,
-  },
+      mans = { glob = "usr/share/man/**" } | OutputData,
+      includes = { glob = "usr/include/**" } | OutputData,
+      ..
+    }
+      | match {
+        { arch = 'Amd64, .. } =>
+          {
+            libquadmath = { glob = "usr/lib/libquadmath*.so*" } | OutputLib,
+            ..
+          },
+        { arch = 'Arm64, .. } => { .. },
+      } target,
 
   attrs =
     {
