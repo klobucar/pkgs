@@ -1,13 +1,13 @@
 let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, OutputData, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 # base
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let bzip2 = import "../bzip2/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let diffutils = import "../diffutils/build.ncl" in
 let file = import "../file/build.ncl" in
 let findutils = import "../findutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let grep = import "../grep/build.ncl" in
 let gzip = import "../gzip/build.ncl" in
 let make = import "../make/build.ncl" in
@@ -35,13 +35,13 @@ let version = "3.12" in
       strip_prefix = "grep-%{version}",
     } | Source,
     # base
-    bash,
+    bash-bootstrap,
     bzip2,
     coreutils,
     diffutils,
     file,
     findutils,
-    gawk,
+    gawk-bootstrap,
     grep,
     gzip,
     make,
@@ -116,7 +116,7 @@ let version = "3.12" in
     text_matching =
       {
         class = 'Standalone,
-        test_deps = [bash, coreutils],
+        test_deps = [bash-bootstrap, coreutils],
         cmds = [
           ["/bin/bash", "-c", "echo 'hello world\nfoo bar\nhello again' > test.txt"],
           ["/bin/bash", "-c", "grep hello test.txt | wc -l | grep -q '^2$'"], # verify 2 matches

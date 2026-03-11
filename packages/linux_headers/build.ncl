@@ -1,7 +1,7 @@
 let { Attrs, BuildSpec, Local, OutputData, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 # base
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let findutils = import "../findutils/build.ncl" in
 let grep = import "../grep/build.ncl" in
@@ -22,7 +22,7 @@ let linux_headers = import "../linux_headers/build.ncl" in
       url = "gs://minimal-staging-archives/linux-6.12.43.tar.xz",
       sha256 = "0fcbbbbcd456e87bbbfc8bf37af541fda62ccfcce76903503424fd101ef7bdee"
     } | Source,
-    bash,
+    bash-bootstrap,
     coreutils,
     findutils,
     grep,

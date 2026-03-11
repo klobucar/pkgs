@@ -60,5 +60,6 @@ let version = "4.28.0" in
         owner = "leanprover",
         repo = "lean4",
       },
+      build_cost_multiple = 3,
     } | Attrs,
 } | BuildSpec

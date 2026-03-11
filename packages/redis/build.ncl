@@ -1,4 +1,4 @@
-let { Attrs, BuildSpec, Local, OutputBin, Source, .. } = import "minimal.ncl" in
+let { subsetOf, Attrs, BuildSpec, Local, OutputBin, Source, .. } = import "minimal.ncl" in
 let bash = import "../bash/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let grep = import "../grep/build.ncl" in
@@ -33,7 +33,7 @@ let version = "8.6.0" in
 
   runtime_deps = [
     glibc,
-    gcc,
+    subsetOf gcc ["libstdcpp"],
   ],
 
   cmd = "./build.sh",

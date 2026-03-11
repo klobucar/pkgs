@@ -1,13 +1,13 @@
 let { Attrs, BuildSpec, Local, OutputBin, OutputData, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 # base
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let bzip2 = import "../bzip2/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let diffutils = import "../diffutils/build.ncl" in
 let file = import "../file/build.ncl" in
 let findutils = import "../findutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let grep = import "../grep/build.ncl" in
 let gzip = import "../gzip/build.ncl" in
 let make = import "../make/build.ncl" in
@@ -31,13 +31,13 @@ let version = "4.4.1" in
       sha256 = "dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3"
     } | Source,
     # base
-    bash,
+    bash-bootstrap,
     bzip2,
     coreutils,
     diffutils,
     file,
     findutils,
-    gawk,
+    gawk-bootstrap,
     grep,
     gzip,
     make,

@@ -1,13 +1,13 @@
 let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 # base
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let bzip2 = import "../bzip2/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let diffutils = import "../diffutils/build.ncl" in
 let file = import "../file/build.ncl" in
 let findutils = import "../findutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let grep = import "../grep/build.ncl" in
 let gzip = import "../gzip/build.ncl" in
 let make = import "../make/build.ncl" in
@@ -36,13 +36,13 @@ let version = "9.9" in
       sha256 = "19bcb6ca867183c57d77155eae946c5eced88183143b45ca51ad7d26c628ca75"
     } | Source,
     # base
-    bash,
+    bash-bootstrap,
     bzip2,
     coreutils,
     diffutils,
     file,
     findutils,
-    gawk,
+    gawk-bootstrap,
     grep,
     gzip,
     make,
@@ -160,7 +160,7 @@ let version = "9.9" in
     cut =
       {
         class = 'Standalone,
-        test_deps = [bash, diffutils, grep],
+        test_deps = [bash-bootstrap, diffutils, grep],
         cmds = [
           ["/bin/bash", "-c", "echo 'a,b,c,d\ne,f,g,h' > csv.txt"],
           ["/bin/bash", "-c", "cut -d, -f2 csv.txt > field2.txt"],
@@ -173,7 +173,7 @@ let version = "9.9" in
     sort =
       {
         class = 'Standalone,
-        test_deps = [bash, diffutils, grep],
+        test_deps = [bash-bootstrap, diffutils, grep],
         cmds = [
           ["/bin/bash", "-c", "echo 'zebra\napple\nbanana' > unsorted.txt"],
           ["/bin/bash", "-c", "sort unsorted.txt > sorted.txt"],
@@ -188,7 +188,7 @@ let version = "9.9" in
     tr =
       {
         class = 'Standalone,
-        test_deps = [bash, diffutils, grep],
+        test_deps = [bash-bootstrap, diffutils, grep],
         cmds = [
           ["/bin/bash", "-c", "echo 'hello world' | tr 'a-z' 'A-Z' > upper.txt"],
           ["/bin/bash", "-c", "echo 'HELLO WORLD' > expected_upper.txt"],
@@ -202,7 +202,7 @@ let version = "9.9" in
     wc =
       {
         class = 'Standalone,
-        test_deps = [bash, gawk, grep],
+        test_deps = [bash-bootstrap, gawk-bootstrap, grep],
         cmds = [
           ["/bin/bash", "-c", "echo 'one two three\nfour five' > count.txt"],
           ["/bin/bash", "-c", "wc -l count.txt | awk '{print $1}' | grep -q '^2$'"], # 2 lines
@@ -212,7 +212,7 @@ let version = "9.9" in
     head_tail =
       {
         class = 'Standalone,
-        test_deps = [bash, diffutils, grep],
+        test_deps = [bash-bootstrap, diffutils, grep],
         cmds = [
           ["/bin/bash", "-c", "seq 1 100 > numbers.txt"],
           ["/bin/bash", "-c", "head -n 5 numbers.txt > first5.txt"],
@@ -226,7 +226,7 @@ let version = "9.9" in
     sha256sum =
       {
         class = 'Standalone,
-        test_deps = [bash, diffutils],
+        test_deps = [bash-bootstrap, diffutils],
         cmds = [
           ["/bin/bash", "-c", "echo 'content' > hashtest.txt"],
           ["/bin/bash", "-c", "sha256sum hashtest.txt > hash1.txt"],

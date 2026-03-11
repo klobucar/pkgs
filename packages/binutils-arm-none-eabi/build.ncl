@@ -1,6 +1,6 @@
 let { subsetOf, Attrs, BuildSpec, Local, OutputBin, OutputData, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let base = import "../base-bootstrap/build.ncl" in
+let base-bootstrap = import "../base-bootstrap/build.ncl" in
 let make = import "../make/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
@@ -16,7 +16,7 @@ let version = "2.43.1" in
       url = "https://mirrors.kernel.org/gnu/binutils/binutils-%{version}.tar.xz",
       sha256 = "13f74202a3c4c51118b797a39ea4200d3f6cfbe224da6d1d95bb938480132dfd"
     } | Source,
-    base,
+    base-bootstrap,
     make,
     toolchain,
   ],

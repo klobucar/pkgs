@@ -1,6 +1,6 @@
 let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let base = import "../base-bootstrap/build.ncl" in
+let base-bootstrap = import "../base-bootstrap/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 let make = import "../make/build.ncl" in
 let acl = import "../acl/build.ncl" in
@@ -17,7 +17,7 @@ let version = "1.35" in
       url = "gs://minimal-staging-archives/tar-%{version}.tar.xz",
       sha256 = "4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16"
     } | Source,
-    base,
+    base-bootstrap,
     make,
     toolchain,
   ],
@@ -83,7 +83,7 @@ let version = "1.35" in
     compress_extract =
       {
         class = 'Standalone,
-        test_deps = [base],
+        test_deps = [base-bootstrap],
         cmds = [
           ["/bin/bash", "-c", "echo 'content1' > file1.txt"],
           ["/bin/bash", "-c", "echo 'content2' > file2.txt"],

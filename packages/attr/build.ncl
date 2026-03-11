@@ -1,9 +1,9 @@
 let { BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let binutils = import "../binutils/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 let grep = import "../grep/build.ncl" in
@@ -20,10 +20,10 @@ let sed = import "../sed/build.ncl" in
       extract = true,
       strip_prefix = "attr-2.5.2",
     } | Source,
-    bash,
+    bash-bootstrap,
     binutils,
     coreutils,
-    gawk,
+    gawk-bootstrap,
     gcc,
     glibc,
     grep,

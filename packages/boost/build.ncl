@@ -1,10 +1,12 @@
-let { Attrs, BuildSpec, Local, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
+let { subsetOf, Attrs, BuildSpec, Local, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let base = import "../base/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
-let glibc = import "../glibc/build.ncl" in
 let python = import "../python/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
+let bzip2 = import "../bzip2/build.ncl" in
 let xz = import "../xz/build.ncl" in
+let zstd = import "../zstd/build.ncl" in
+let glibc = import "../glibc/build.ncl" in
 {
   name = "boost",
   build_deps = [
@@ -16,11 +18,16 @@ let xz = import "../xz/build.ncl" in
     base,
     python,
     toolchain,
+    bzip2,
+    xz,
+    zstd,
   ],
   runtime_deps = [
-    gcc, # TODO: We really need to use a subset for this
+    subsetOf gcc ["libgcc", "libstdcpp", "libquadmath"],
+    subsetOf bzip2 ["libs"],
+    subsetOf xz ["liblzma"],
+    subsetOf zstd ["libzstd"],
     glibc,
-    xz,
   ],
 
   cmd = "./build.sh",

@@ -39,7 +39,6 @@ let version = "1.28.1" in
 
   runtime_deps = [
     glibc,
-    gcc,
     zlib,
     openssl,
     pcre2,

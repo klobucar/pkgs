@@ -1,4 +1,4 @@
-let { Attrs, BuildSpec, Local, OutputBin, OutputData, Source, Test, .. } = import "minimal.ncl" in
+let { subsetOf, Attrs, BuildSpec, Local, OutputBin, OutputData, Source, Test, .. } = import "minimal.ncl" in
 let make = import "../make/build.ncl" in
 let openssl = import "../openssl/build.ncl" in
 let python = import "../python/build.ncl" in
@@ -34,7 +34,7 @@ let version = "24.9.0" in
     zlib,
     sqlite,
     glibc,
-    gcc, # TODO: Use a subset thats just libstdc, libm, libgcc_s
+    subsetOf gcc ["libgcc", "libstdcpp"],
   ],
 
   cmd = "./build.sh",

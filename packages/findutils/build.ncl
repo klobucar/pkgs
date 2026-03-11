@@ -1,10 +1,10 @@
 let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let binutils = import "../binutils/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let diffutils = import "../diffutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 let grep = import "../grep/build.ncl" in
@@ -23,11 +23,11 @@ let version = "4.10.0" in
       extract = true,
     } | Source,
     { file = "build.sh" } | Local,
-    bash,
+    bash-bootstrap,
     binutils,
     coreutils,
     diffutils,
-    gawk,
+    gawk-bootstrap,
     gcc,
     glibc,
     grep,
@@ -94,7 +94,7 @@ let version = "4.10.0" in
     find =
       {
         class = 'Standalone,
-        test_deps = [bash, coreutils, grep],
+        test_deps = [bash-bootstrap, coreutils, grep],
         cmds = [
           ["/bin/bash", "-c", "mkdir -p testdir && echo 'data' > testdir/test.txt"],
           ["/bin/bash", "-c", "touch testdir/other.log"],

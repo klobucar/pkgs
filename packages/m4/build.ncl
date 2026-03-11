@@ -1,6 +1,6 @@
 let { Attrs, BuildSpec, Local, OutputBin, OutputData, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let base = import "../base-bootstrap/build.ncl" in
+let base-bootstrap = import "../base-bootstrap/build.ncl" in
 let make = import "../make/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
@@ -16,7 +16,7 @@ let version = "1.4.20" in
       extract = true,
       strip_prefix = "m4-%{version}",
     } | Source,
-    base,
+    base-bootstrap,
     make,
     toolchain,
   ],

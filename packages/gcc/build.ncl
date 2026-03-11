@@ -1,13 +1,13 @@
 let { Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 # base
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let bzip2 = import "../bzip2/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let diffutils = import "../diffutils/build.ncl" in
 let file = import "../file/build.ncl" in
 let findutils = import "../findutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let grep = import "../grep/build.ncl" in
 let gzip = import "../gzip/build.ncl" in
 let make = import "../make/build.ncl" in
@@ -37,13 +37,13 @@ let version = "15.2.0" in
       sha256 = "438fd996826b0c82485a29da03a72d71d6e3541a83ec702df4271f6fe025d24e"
     } | Source,
     # base
-    bash,
+    bash-bootstrap,
     bzip2,
     coreutils,
     diffutils,
     file,
     findutils,
-    gawk,
+    gawk-bootstrap,
     grep,
     gzip,
     make,
@@ -81,6 +81,7 @@ let version = "15.2.0" in
     libgcc = { glob = "usr/lib/libgcc_s.so*", allow_data = true } | OutputLib, # allows data as libgcc_s.so is a stub that does not parse in our checker
     libgomp = { glob = "usr/lib/libgomp.so*" } | OutputLib,
     libstdcpp = { glob = "usr/lib/libstdc++*.so*", allow_data = true } | OutputLib, # libstdc++.so.6.0.34-gdb.py...
+    libquadmath = { glob = "usr/lib/libquadmath*.so*" } | OutputLib,
 
     libs_all = { glob = "usr/lib/**", allow_executable = true } | OutputData,
     share_data = { glob = "usr/share/gcc-*/**" } | OutputData,
@@ -149,7 +150,7 @@ let version = "15.2.0" in
     compile_exec_code =
       {
         class = 'Standalone,
-        test_deps = [bash, binutils, coreutils], # TODO: Some of these need to be runtime_deps
+        test_deps = [bash-bootstrap, binutils, coreutils], # TODO: Some of these need to be runtime_deps
         cmds = [
           ["/bin/bash", "-c", "echo 'int main() { return 0; }' > hello.c"],
           ["/bin/gcc", "hello.c", "-o", "hello"],
@@ -161,7 +162,7 @@ let version = "15.2.0" in
     compile_exec_output =
       {
         class = 'Standalone,
-        test_deps = [bash, binutils, coreutils, grep], # TODO: Some of these need to be runtime_deps
+        test_deps = [bash-bootstrap, binutils, coreutils, grep], # TODO: Some of these need to be runtime_deps
         cmds = [
           ["/bin/bash", "-c", "cat > print.c << 'EOF'\n#include <stdio.h>\nint main() {\n    printf(\"Hello World\");\n    return 0;\n}\nEOF"],
           ["/bin/gcc", "print.c", "-o", "print"],
@@ -173,7 +174,7 @@ let version = "15.2.0" in
     compile_exec_math =
       {
         class = 'Standalone,
-        test_deps = [bash, binutils, coreutils, grep], # TODO: Some of these need to be runtime_deps
+        test_deps = [bash-bootstrap, binutils, coreutils, grep], # TODO: Some of these need to be runtime_deps
         cmds = [
           ["/bin/bash", "-c", "cat > math.c << 'EOF'\n#include <stdio.h>\nint main() {\n    int result = 2 + 2;\n    printf(\"%d\", result);\n    return 0;\n}\nEOF"],
           ["/bin/gcc", "math.c", "-o", "math"],
@@ -184,7 +185,7 @@ let version = "15.2.0" in
     compile_exec_linking =
       {
         class = 'Standalone,
-        test_deps = [bash, binutils, coreutils, grep], # TODO: Some of these need to be runtime_deps
+        test_deps = [bash-bootstrap, binutils, coreutils, grep], # TODO: Some of these need to be runtime_deps
         cmds = [
           ["/bin/bash", "-c", "cat > func.c << 'EOF'\nint multiply(int a, int b) {\n    return a * b;\n}\nEOF"],
           ["/bin/bash", "-c", "cat > main.c << 'EOF'\n#include <stdio.h>\nint multiply(int a, int b);\nint main() {\n    printf(\"%d\", multiply(6, 7));\n    return 0;\n}\nEOF"],

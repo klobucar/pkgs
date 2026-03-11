@@ -3,7 +3,7 @@ let { target, .. } = import "config.ncl" in
 
 # TODO: When packaging i see errors like: /usr/bin/bison: m4 subprocess failed: No such file or directory
 # Maybe m4 needs to be a runtime_dep here?
-let base = import "../base-bootstrap/build.ncl" in
+let base-bootstrap = import "../base-bootstrap/build.ncl" in
 let flex = import "../flex/build.ncl" in
 let m4 = import "../m4/build.ncl" in
 let make = import "../make/build.ncl" in
@@ -17,7 +17,7 @@ let glibc = import "../glibc/build.ncl" in
       sha256 = "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2"
     } | Source,
     { file = "build.sh" } | Local,
-    base,
+    base-bootstrap,
     make,
     flex,
     m4,

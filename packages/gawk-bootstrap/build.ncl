@@ -1,6 +1,6 @@
 let { BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let base_bootstrap = import "../base-bootstrap/build.ncl" in
+let base-bootstrap = import "../base-bootstrap/build.ncl" in
 let make = import "../make/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 
@@ -16,7 +16,7 @@ let version = "5.3.2" in
       url = "gs://minimal-staging-archives/gawk-%{version}.tar.xz",
       sha256 = "f8c3486509de705192138b00ef2c00bbbdd0e84c30d5c07d23fc73a9dc4cc9cc"
     } | Source,
-    base_bootstrap,
+    base-bootstrap,
     make,
     toolchain,
   ],

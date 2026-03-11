@@ -1,9 +1,9 @@
 let { Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let base = import "../base-bootstrap/build.ncl" in
+let base = import "../base/build.ncl" in
 let make = import "../make/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
-let binutils_arm = import "../binutils-arm-none-eabi/build.ncl" in
+let binutils-arm-none-eabi = import "../binutils-arm-none-eabi/build.ncl" in
 let gmp = import "../gmp/build.ncl" in
 let mpfr = import "../mpfr/build.ncl" in
 let mpc = import "../mpc/build.ncl" in
@@ -27,7 +27,6 @@ let newlib_version = "4.4.0.20231231" in
     base,
     make,
     toolchain,
-    binutils_arm,
     gmp,
     mpfr,
     mpc,
@@ -35,7 +34,7 @@ let newlib_version = "4.4.0.20231231" in
     zstd,
   ],
   runtime_deps = [
-    binutils_arm,
+    binutils-arm-none-eabi,
   ],
 
   cmd = "./build.sh",

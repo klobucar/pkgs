@@ -5,7 +5,6 @@ let ninja = import "../ninja/build.ncl" in
 let python = import "../python/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
-let gcc = import "../gcc/build.ncl" in
 let zlib = import "../zlib/build.ncl" in
 
 {

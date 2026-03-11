@@ -19,7 +19,6 @@ let libxshmfence = import "../libxshmfence/build.ncl" in
 let xorgproto = import "../xorgproto/build.ncl" in
 let expat = import "../expat/build.ncl" in
 let zlib = import "../zlib/build.ncl" in
-let gcc = import "../gcc/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 
 let version = "25.3.5" in
@@ -43,15 +42,6 @@ let version = "25.3.5" in
     flex,
     m4,
     xorgproto,
-    libdrm,
-    libxcb,
-    libx11,
-    libxext,
-    libxfixes,
-    libxrandr,
-    libxshmfence,
-    expat,
-    zlib,
   ],
   runtime_deps = [
     libdrm,
@@ -63,7 +53,6 @@ let version = "25.3.5" in
     libxshmfence,
     expat,
     zlib,
-    gcc,
     glibc,
   ],
 

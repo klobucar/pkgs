@@ -1,6 +1,6 @@
 let { Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let base = import "../base-bootstrap/build.ncl" in
+let base-bootstrap = import "../base-bootstrap/build.ncl" in
 let make = import "../make/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
@@ -12,7 +12,7 @@ let glibc = import "../glibc/build.ncl" in
       url = "gs://minimal-staging-archives/bzip2-1.0.8.tar.gz",
       sha256 = "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
     } | Source,
-    base,
+    base-bootstrap,
     make,
     toolchain,
   ],

@@ -1,4 +1,4 @@
-let { Attrs, BuildSpec, Local, OutputBin, Source, .. } = import "minimal.ncl" in
+let { subsetOf, Attrs, BuildSpec, Local, OutputBin, Source, .. } = import "minimal.ncl" in
 let base = import "../base/build.ncl" in
 let rust = import "../rust/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
@@ -24,7 +24,7 @@ let version = "18.12.1" in
 
   runtime_deps = [
     glibc,
-    gcc,
+    subsetOf gcc ["libgcc"],
   ],
 
   cmd = "./build.sh",

@@ -4,10 +4,9 @@ let toolchain = import "../toolchain/build.ncl" in
 let meson = import "../meson/build.ncl" in
 let ninja = import "../ninja/build.ncl" in
 let pkgconf = import "../pkgconf/build.ncl" in
-let glib = import "../glib/build.ncl" in
-let freetype = import "../freetype/build.ncl" in
 
-let gcc = import "../gcc/build.ncl" in
+let freetype = import "../freetype/build.ncl" in
+let glib = import "../glib/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 
 let version = "12.3.2" in
@@ -26,14 +25,11 @@ let version = "12.3.2" in
     ninja,
     pkgconf,
     toolchain,
-    glib,
-    freetype,
   ],
   runtime_deps = [
     freetype,
     glib,
     glibc,
-    gcc,
   ],
 
   cmd = "./build.sh",

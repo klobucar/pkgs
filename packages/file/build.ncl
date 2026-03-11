@@ -1,10 +1,10 @@
 let { Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let tar = import "../tar/build.ncl" in
 let make = import "../make/build.ncl" in
 let sed = import "../sed/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let grep = import "../grep/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
@@ -20,11 +20,11 @@ let xz = import "../xz/build.ncl" in
       url = "gs://minimal-staging-archives/file-5.46.tar.gz",
       sha256 = "c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088"
     } | Source,
-    bash,
+    bash-bootstrap,
     tar,
     make,
     sed,
-    gawk,
+    gawk-bootstrap,
     grep,
     coreutils,
     toolchain,

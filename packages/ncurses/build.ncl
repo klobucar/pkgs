@@ -1,7 +1,7 @@
 let { subsetOf, Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 let attr = import "../attr/build.ncl" in
-let base_bootstrap = import "../base-bootstrap/build.ncl" in
+let base-bootstrap = import "../base-bootstrap/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 let make = import "../make/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
@@ -15,7 +15,7 @@ let version = "6.5-20250830" in
       url = "gs://minimal-staging-archives/ncurses-%{version}.tgz",
       sha256 = "519ec9f748d7f2873cf763394fc766a701967439610125ad0fbf76ab2c7510a5"
     } | Source,
-    base_bootstrap,
+    base-bootstrap,
     make,
     toolchain,
   ],
@@ -47,5 +47,4 @@ let version = "6.5-20250830" in
         name = "ncurses",
       },
     } | Attrs,
-
 } | BuildSpec

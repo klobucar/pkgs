@@ -2,11 +2,11 @@ let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, OutputData, Source, Te
 let { target, .. } = import "config.ncl" in
 let acl = import "../acl/build.ncl" in
 let attr = import "../attr/build.ncl" in
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let binutils = import "../binutils/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let findutils = import "../findutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 let grep = import "../grep/build.ncl" in
@@ -25,11 +25,11 @@ let version = "4.9" in
       sha256 = "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181"
     } | Source,
     acl,
-    bash,
+    bash-bootstrap,
     binutils,
     coreutils,
     findutils,
-    gawk,
+    gawk-bootstrap,
     gcc,
     glibc,
     grep,
@@ -95,7 +95,7 @@ let version = "4.9" in
     text =
       {
         class = 'Standalone,
-        test_deps = [bash, coreutils, grep],
+        test_deps = [bash-bootstrap, coreutils, grep],
         cmds = [
           # verify substitution
           ["/bin/bash", "-c", "echo 'hello world' > input.txt"],

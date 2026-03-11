@@ -1,10 +1,10 @@
 let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, OutputData, OutputLib, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
-let bash = import "../bash-bootstrap/build.ncl" in
+let bash-bootstrap = import "../bash-bootstrap/build.ncl" in
 let binutils = import "../binutils/build.ncl" in
 let coreutils = import "../coreutils/build.ncl" in
 let diffutils = import "../diffutils/build.ncl" in
-let gawk = import "../gawk-bootstrap/build.ncl" in
+let gawk-bootstrap = import "../gawk-bootstrap/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
 let grep = import "../grep/build.ncl" in
@@ -23,11 +23,11 @@ let version = "3.12" in
       sha256 = "7c8b7f9fc8609141fdea9cece85249d308624391ff61dedaf528fcb337727dfd",
       extract = true,
     } | Source,
-    bash,
+    bash-bootstrap,
     binutils,
     coreutils,
     diffutils,
-    gawk,
+    gawk-bootstrap,
     gcc,
     glibc,
     grep,
@@ -97,7 +97,7 @@ let version = "3.12" in
     diff =
       {
         class = 'Standalone,
-        test_deps = [bash, coreutils],
+        test_deps = [bash-bootstrap, coreutils],
         cmds = [
           ["/bin/bash", "-c", "echo 'hello world' > test1.txt"],
           ["/bin/bash", "-c", "echo 'hello whrld' > test2.txt"],
