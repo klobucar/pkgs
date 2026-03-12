@@ -9,6 +9,7 @@ mkdir -p "$SDK_ROOT/cmdline-tools/latest"
 
 # Move tools into the expected directory structure
 cp -r cmdline-extract/cmdline-tools/* "$SDK_ROOT/cmdline-tools/latest/"
+chmod +x "$SDK_ROOT/cmdline-tools/latest/bin/"*
 
 # Pre-accept licenses
 mkdir -p "$SDK_ROOT/licenses"
@@ -18,9 +19,10 @@ echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$SDK_ROOT/licenses/andro
 # Create wrapper script for sdkmanager
 mkdir -p "$OUTPUT_DIR/usr/bin"
 
-cat > "$OUTPUT_DIR/usr/bin/sdkmanager" << 'EOF'
+SDK_LIB="/usr/lib/android-sdk/cmdline-tools/latest/lib"
+cat > "$OUTPUT_DIR/usr/bin/sdkmanager" << EOF
 #!/bin/sh
-export ANDROID_HOME="${ANDROID_HOME:-/usr/lib/android-sdk}"
-exec /usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root="$ANDROID_HOME" "$@"
+ANDROID_HOME="\${ANDROID_HOME:-/usr/lib/android-sdk}"
+exec java -Dcom.android.sdklib.toolsdir=$SDK_LIB/.. -classpath "$SDK_LIB/sdkmanager-classpath.jar" com.android.sdklib.tool.sdkmanager.SdkManagerCli --sdk_root="\$ANDROID_HOME" "\$@"
 EOF
 chmod +x "$OUTPUT_DIR/usr/bin/sdkmanager"
