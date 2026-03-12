@@ -57,25 +57,31 @@ let version = "2.52.0" in
     } | Attrs,
 
   tests = {
+    version_check =
+      {
+        class = 'Standalone,
+        test_deps = [base],
+        cmds = [
+          ["git", "--version"],
+        ],
+      } | Test,
     basic_repo_ops =
       {
         class = 'Standalone,
         test_deps = [base],
         cmds = [
-          ["/bin/bash", "-c", "git config --global user.email 'test@example.com'"],
-          ["/bin/bash", "-c", "git config --global user.name 'Test User'"],
           ["/bin/bash", "-c", "mkdir repo && cd repo && git init"],
           ["/bin/bash", "-c", "cd repo && echo 'hello' > file.txt && git add file.txt"],
-          ["/bin/bash", "-c", "cd repo && git commit -m 'initial commit'"],
+          ["/bin/bash", "-c", "cd repo && git -c user.email=test@test.com -c user.name=Test commit -m 'initial commit'"],
           ["/bin/bash", "-c", "cd repo && git log --oneline | grep -q 'initial commit'"],
           ["/bin/bash", "-c", "cd repo && echo 'world' >> file.txt && git add file.txt"],
-          ["/bin/bash", "-c", "cd repo && git commit -m 'second commit'"],
-          ["/bin/bash", "-c", "cd repo && git log --oneline | wc -l | grep -q '^2$'"], # verify 2 commits
+          ["/bin/bash", "-c", "cd repo && git -c user.email=test@test.com -c user.name=Test commit -m 'second commit'"],
+          ["/bin/bash", "-c", "cd repo && git log --oneline | wc -l | grep -q '^2$'"],
           ["/bin/bash", "-c", "cd repo && git checkout -b newbranch"],
-          ["/bin/bash", "-c", "cd repo && git branch | grep -q '\\* newbranch'"], # verify on new branch
-          ["/bin/bash", "-c", "cd repo && echo 'branch content' > branch.txt && git add branch.txt && git commit -m 'branch commit'"],
+          ["/bin/bash", "-c", "cd repo && git branch | grep -q '\\* newbranch'"],
+          ["/bin/bash", "-c", "cd repo && echo 'branch content' > branch.txt && git add branch.txt && git -c user.email=test@test.com -c user.name=Test commit -m 'branch commit'"],
           ["/bin/bash", "-c", "cd repo && git checkout master || git checkout main"],
-          ["/bin/bash", "-c", "cd repo && ! test -f branch.txt"], # verify file doesn't exist on main branch
+          ["/bin/bash", "-c", "cd repo && ! test -f branch.txt"],
         ],
       } | Test,
   },
