@@ -1,8 +1,9 @@
-let { standaloneTest, Attrs, BuildSpec, Local, OutputBin, OutputData, Source, Test, .. } = import "minimal.ncl" in
+let { standaloneTest, subsetOf, Attrs, BuildSpec, Local, OutputBin, OutputData, Source, Test, .. } = import "minimal.ncl" in
 let { target, .. } = import "config.ncl" in
 let base = import "../base/build.ncl" in
 let python = import "../python/build.ncl" in
 let glibc = import "../glibc/build.ncl" in
+let sqlite = import "../sqlite/build.ncl" in
 
 let version = "559.0.0" in
 let dl_base = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads" in
@@ -35,6 +36,7 @@ in
     base,
     python,
     glibc,
+    subsetOf sqlite ["libs"],
   ],
 
   cmd = "./build.sh",
