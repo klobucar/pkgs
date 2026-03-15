@@ -19,6 +19,7 @@ export CXXFLAGS="${CFLAGS}"
             --without-normal        \
             --with-cxx-shared       \
             --enable-pc-files       \
+            --enable-symlinks       \
             --with-pkg-config-libdir=/usr/lib/pkgconfig
 
 make -j$(nproc)
