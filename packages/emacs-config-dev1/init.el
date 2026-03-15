@@ -1,7 +1,8 @@
-;;; default.el --- Minimal developer Emacs configuration -*- lexical-binding: t; -*-
+;;; minimal-init-dev1.el --- Minimal developer Emacs configuration -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; System-level Emacs configuration for the Minimal build system.
+;; Developer environment config fragment for the Minimal build system.
+;; Loaded automatically by site-start.el via the minimal-init-* convention.
 ;; Provides a terminal-friendly developer environment with LSP support.
 
 ;;; Code:
@@ -39,17 +40,6 @@
 (setq-default indent-tabs-mode nil
               tab-width 4)
 
-;; ── Package load paths ────────────────────────────────────────────────
-(let ((site-lisp-dir (expand-file-name "../share/emacs/site-lisp" data-directory)))
-  (when (file-directory-p site-lisp-dir)
-    (dolist (dir (directory-files site-lisp-dir t "\\`[^.]"))
-      (when (file-directory-p dir)
-        (add-to-list 'load-path dir)
-        ;; Also add lisp/ subdirectory if present (e.g., magit/lisp/)
-        (let ((lisp-subdir (expand-file-name "lisp" dir)))
-          (when (file-directory-p lisp-subdir)
-            (add-to-list 'load-path lisp-subdir)))))))
-
 ;; ── Completion framework (vertico + orderless + marginalia + consult) ─
 (when (require 'vertico nil t)
   (vertico-mode 1))
@@ -78,19 +68,41 @@
 (when (require 'which-key nil t)
   (which-key-mode 1))
 
-;; ── Magit ─────────────────────────────────────────────────────────────
-(when (require 'transient nil t)
-  (when (require 'magit nil t)
-    (global-set-key (kbd "C-x g") 'magit-status)))
-
 ;; ── Extra modes ───────────────────────────────────────────────────────
 (require 'markdown-mode nil t)
 (require 'yaml-mode nil t)
 (require 'dockerfile-mode nil t)
 (require 'nickel-mode nil t)
+(require 'rust-mode nil t)
 
-;; ── Tree-sitter ───────────────────────────────────────────────────────
+;; ── Magit ─────────────────────────────────────────────────────────────
+;; Magit runs git at load time; wrap to avoid aborting default.el if
+;; git is not installed.
+(ignore-errors
+  (when (require 'transient nil t)
+    (when (require 'magit nil t)
+      (global-set-key (kbd "C-x g") 'magit-status))))
+
+;; ── Tree-sitter grammars and mode registrations ────────────────────────
 (setq treesit-font-lock-level 4)
+
+;; Point Emacs at the bundled grammar shared libraries.
+(add-to-list 'treesit-extra-load-path "/usr/lib/emacs/tree-sitter")
+
+;; Register tree-sitter modes for file types where grammars are available.
+(dolist (entry '((rust       . ("\\.rs\\'"    . rust-ts-mode))
+                 (go         . ("\\.go\\'"    . go-ts-mode))
+                 (gomod      . ("go\\.mod\\'" . go-mod-ts-mode))
+                 (typescript . ("\\.ts\\'"    . typescript-ts-mode))
+                 (tsx        . ("\\.tsx\\'"   . tsx-ts-mode))
+                 (python     . ("\\.py\\'"   . python-ts-mode))
+                 (bash       . ("\\.sh\\'"   . bash-ts-mode))
+                 (c          . ("\\.c\\'"    . c-ts-mode))
+                 (json       . ("\\.json\\'" . json-ts-mode))
+                 (yaml       . ("\\.ya?ml\\'" . yaml-ts-mode))
+                 (toml       . ("\\.toml\\'" . toml-ts-mode))))
+  (when (treesit-language-available-p (car entry))
+    (add-to-list 'auto-mode-alist (cdr entry))))
 
 ;; ── EditorConfig ──────────────────────────────────────────────────────
 (when (fboundp 'editorconfig-mode)
@@ -116,6 +128,7 @@
   "Start eglot if a server program is configured for the current mode."
   (when (and (fboundp 'eglot-ensure)
              (not (derived-mode-p 'emacs-lisp-mode))
+             (boundp 'eglot-server-programs)
              (assoc major-mode eglot-server-programs
                     (lambda (key mode)
                       (if (listp key)
@@ -125,4 +138,4 @@
 
 (add-hook 'prog-mode-hook #'minimal--maybe-eglot)
 
-;;; default.el ends here
+;;; minimal-init-dev1.el ends here

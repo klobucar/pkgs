@@ -1,11 +1,14 @@
-let { Attrs, BuildSpec, Local, OutputData, Source, .. } = import "minimal.ncl" in
+let { Attrs, BuildSpec, Local, OutputData, OutputLib, Source, .. } = import "minimal.ncl" in
 let base = import "../base/build.ncl" in
 let emacs = import "../emacs/build.ncl" in
+let git = import "../git/build.ncl" in
+let toolchain = import "../toolchain/build.ncl" in
+let tree-sitter = import "../tree-sitter/build.ncl" in
 {
-  name = "emacs-config",
+  name = "emacs-config-dev1",
   build_deps = [
     { file = "build.sh" } | Local,
-    { file = "default.el" } | Local,
+    { file = "init.el" } | Local,
 
     # ── Completion framework ───────────────────────────────────────────
     {
@@ -89,18 +92,79 @@ let emacs = import "../emacs/build.ncl" in
       sha256 = "209d5129ea006d0a335fbf82221878a6aa4796d18b048ce895d18473bc7d65a4",
       extract = true,
     } | Source,
+    {
+      url = "https://github.com/rust-lang/rust-mode/archive/refs/tags/1.0.6.tar.gz",
+      sha256 = "37ac9c0e05c915861af3996e037b18cc7d03f52d7fb508af7c404425ac95a461",
+      extract = true,
+    } | Source,
+
+    # ── Tree-sitter grammars ──────────────────────────────────────────
+    {
+      url = "https://github.com/tree-sitter/tree-sitter-rust/archive/refs/tags/v0.23.2.tar.gz",
+      sha256 = "71ce61738f8aff4531afed443572ca68aa74a66a07569a1d50863eb34787c782",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter/tree-sitter-go/archive/refs/tags/v0.23.4.tar.gz",
+      sha256 = "967870d7d120e9b760e538aeb8331a72f70ffcca4f1eaf1e1dea5375886d25d2",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter/tree-sitter-typescript/archive/refs/tags/v0.23.2.tar.gz",
+      sha256 = "2c4ce711ae8d1218a3b2f899189298159d672870b5b34dff5d937bed2f3e8983",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter/tree-sitter-python/archive/refs/tags/v0.23.6.tar.gz",
+      sha256 = "630a0f45eccd9b69a66a07bf47d1568e96a9c855a2f30e0921c8af7121e8af96",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter/tree-sitter-bash/archive/refs/tags/v0.23.3.tar.gz",
+      sha256 = "c682b81d0fe953d19f6632db3ba6e4f2db1efe1784f7a28bc5fcf6355d67335b",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter/tree-sitter-c/archive/refs/tags/v0.23.4.tar.gz",
+      sha256 = "b66c5043e26d84e5f17a059af71b157bcf202221069ed220aa1696d7d1d28a7a",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter/tree-sitter-json/archive/refs/tags/v0.24.8.tar.gz",
+      sha256 = "acf6e8362457e819ed8b613f2ad9a0e1b621a77556c296f3abea58f7880a9213",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-yaml/archive/refs/tags/v0.7.0.tar.gz",
+      sha256 = "8182760587f14d5131161dee3605613ccebe86062909f0879edf63b4bdd99d44",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-toml/archive/refs/tags/v0.7.0.tar.gz",
+      sha256 = "7d52a7d4884f307aabc872867c69084d94456d8afcdc63b0a73031a8b29036dc",
+      extract = true,
+    } | Source,
+    {
+      url = "https://github.com/camdencheek/tree-sitter-go-mod/archive/refs/tags/v1.1.0.tar.gz",
+      sha256 = "66f55e0dfa9d654484146c405261d667196d3b20872fa3f7813d5125a82d6de8",
+      extract = true,
+    } | Source,
     base,
     emacs,
+    toolchain,
   ],
 
   runtime_deps = [
     emacs,
+    git,
+    tree-sitter,
   ],
 
   cmd = "./build.sh",
 
   outputs = {
     site-lisp = { glob = "usr/share/emacs/site-lisp/**" } | OutputData,
+    grammars = { glob = "usr/lib/emacs/tree-sitter/*.so" } | OutputLib,
   },
 
   attrs =

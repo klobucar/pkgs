@@ -13,7 +13,6 @@ let pkgconf = import "../pkgconf/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 let tree-sitter = import "../tree-sitter/build.ncl" in
 let zlib = import "../zlib/build.ncl" in
-
 let version = "30.1" in
 {
   name = "emacs",
@@ -59,6 +58,5 @@ let version = "30.1" in
         name = "emacs",
       },
       build_cost_multiple = 3,
-      env_dir_mappings = [{ read_only = false, path = "~/.emacs.d", class = 'State }],
     } | Attrs,
 } | BuildSpec
