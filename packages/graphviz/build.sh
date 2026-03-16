@@ -17,6 +17,10 @@ cmake \
     -D CMAKE_INSTALL_PREFIX=/usr        \
     -D CMAKE_INSTALL_LIBDIR=/usr/lib    \
     -D CMAKE_BUILD_TYPE=Release         \
+    -D WITH_ZLIB=ON                     \
+    -D WITH_SMYRNA=OFF                  \
+    -D WITH_GVEDIT=OFF                  \
+    -D WITH_X=OFF                       \
     ..
 
 sed -i '/GZIP/s/:.*$/=/' CMakeCache.txt
@@ -24,3 +28,4 @@ sed -i '/GZIP/s/:.*$/=/' CMakeCache.txt
 make -j$(nproc)
 
 LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${OUTPUT_DIR}/usr/lib" DESTDIR=$OUTPUT_DIR make install
+

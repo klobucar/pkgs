@@ -9,10 +9,16 @@ let python = import "../python/build.ncl" in
 let pkgconf = import "../pkgconf/build.ncl" in
 let toolchain = import "../toolchain/build.ncl" in
 
+let cairo = import "../cairo/build.ncl" in
 let fontconfig = import "../fontconfig/build.ncl" in
-let glibc = import "../glibc/build.ncl" in
 let gcc = import "../gcc/build.ncl" in
+let glibc = import "../glibc/build.ncl" in
+let liberation-fonts = import "../liberation-fonts/build.ncl" in
+let libgd = import "../libgd/build.ncl" in
 let libpng = import "../libpng/build.ncl" in
+let libtool = import "../libtool/build.ncl" in
+let pango = import "../pango/build.ncl" in
+let zlib = import "../zlib/build.ncl" in
 
 let version = "14.1.1" in
 {
@@ -36,9 +42,15 @@ let version = "14.1.1" in
     toolchain,
   ],
   runtime_deps = [
+    cairo,
     fontconfig,
     glibc,
+    liberation-fonts,
+    libgd,
     libpng,
+    libtool,
+    pango,
+    zlib,
     subsetOf gcc ["libgcc", "libstdcpp"],
   ],
 
@@ -48,6 +60,7 @@ let version = "14.1.1" in
 
     libs = { glob = "usr/lib/lib*.so*" } | OutputLib,
     graphviz_plugins = { glob = "usr/lib/graphviz/*.so*" } | OutputLib,
+    graphviz_plugin_config = { glob = "usr/lib/graphviz/config*" } | OutputData,
     graphviz_data = { glob = "usr/share/graphviz/**" } | OutputData,
 
     cmake_data = { glob = "usr/lib/cmake/graphviz/*.cmake" } | OutputData,

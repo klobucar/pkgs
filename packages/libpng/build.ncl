@@ -32,6 +32,7 @@ let version = "1.6.53" in
   outputs = {
     libs = { glob = "usr/lib/libpng*.so*" } | OutputLib,
     includes = { glob = "usr/include/**" } | OutputData,
+    pkgconfigs = { glob = "usr/lib/pkgconfig/*.pc" } | OutputData,
   },
 
   attrs =
